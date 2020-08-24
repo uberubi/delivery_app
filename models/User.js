@@ -5,6 +5,14 @@ const userSchema = new Schema({
   password: String,
   email: String,
   createdAt: String,
+  products: [
+    {
+      username: String,
+      productName: String,
+      description: String,
+      createdAt: String
+    }
+  ]
 });
 
 module.exports = model("User", userSchema);
