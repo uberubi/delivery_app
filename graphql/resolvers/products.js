@@ -51,6 +51,7 @@ module.exports = {
           ...user.products,
           {
             username,
+            userId: user.id,
             productName,
             description,
             approved: false,
@@ -83,5 +84,20 @@ module.exports = {
         throw new UserInputError("User not found");
       }
     },
+    async approveProduct(_, {userId ,productId}, context) {
+      const {username} = checkAuth(context)
+      const user = await User.findById(userId)
+      if (user) {
+        user.products.forEach(p => {
+          if (p.id === productId) {
+            p.approved = true
+          }
+        })
+        await user.save()
+        return user
+      } else {
+        throw new UserInputError("This product doesn't exist already")
+      }
+    }
   },
-};
+}

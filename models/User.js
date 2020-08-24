@@ -8,6 +8,7 @@ const userSchema = new Schema({
   products: [
     {
       username: String,
+      userId: String,
       productName: String,
       description: String,
       approved: Boolean,

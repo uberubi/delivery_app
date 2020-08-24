@@ -18,6 +18,7 @@ module.exports = gql`
   type Product {
     id: ID
     username: String!
+    userId: ID 
     createdAt: String!
     productName: String!
     description: String!
@@ -34,6 +35,7 @@ module.exports = gql`
     login(username: String!, password: String!): User!
     createProduct(userId: ID!, productName: String!, description: String!): User!
     deleteProduct(userId: ID!, productId: String!): User!
+    approveProduct(userId: ID!, productId: ID!): User!
     moderLogin(modername: String!, password: String!): Moder!
   }
   type Query {
