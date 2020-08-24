@@ -10,9 +10,10 @@ const userSchema = new Schema({
       username: String,
       productName: String,
       description: String,
-      createdAt: String
-    }
-  ]
+      approved: Boolean,
+      createdAt: String,
+    },
+  ],
 });
 
 module.exports = model("User", userSchema);

@@ -28,10 +28,10 @@ module.exports.validateRegisterInput = (
   };
 };
 
-module.exports.validateLoginInput = (username, password) => {
+module.exports.validateLoginInput = (login, password) => {
   const errors = {};
-  if (username.trim() === '') {
-    errors.username = 'Username must not be empty';
+  if (login.trim() === '') {
+    errors.login = 'Login must not be empty';
   }
   if (password.trim() === '') {
     errors.password = 'Password must not be empty';

@@ -9,12 +9,19 @@ module.exports = gql`
     createdAt: String!
     products: [Product]!
   }
-  type Product {
+  type Moder {
     id: ID!
+    modername: String!
+    createdAt: String!
+    token: String!
+  }
+  type Product {
+    id: ID
     username: String!
     createdAt: String!
     productName: String!
     description: String!
+    approved: Boolean!
   }
   input RegisterInput {
     username: String!
@@ -27,8 +34,10 @@ module.exports = gql`
     login(username: String!, password: String!): User!
     createProduct(userId: ID!, productName: String!, description: String!): User!
     deleteProduct(userId: ID!, productId: String!): User!
+    moderLogin(modername: String!, password: String!): Moder!
   }
   type Query {
     getUsers: [User]
+    getProductsForApprove: [Product]
   }
 `;

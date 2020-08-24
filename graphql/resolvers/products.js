@@ -3,6 +3,22 @@ const checkAuth = require("../../utils/check-auth");
 const { UserInputError, AuthenticationError } = require("apollo-server");
 
 module.exports = {
+  Query: {
+    getProductsForApprove: async () => {
+      try {
+        const users = await User.find();
+
+        const productsForApprove = users.map((u) => {
+          return u.products.filter((p) => !p.approved);
+        });
+
+        console.log("PRODUCTS>>>", [].concat(...productsForApprove));
+        return [].concat(...productsForApprove);
+      } catch (err) {
+        throw new Error(err);
+      }
+    },
+  },
   Mutation: {
     createProduct: async (_, { userId, productName, description }, context) => {
       const { username } = checkAuth(context);
@@ -37,6 +53,7 @@ module.exports = {
             username,
             productName,
             description,
+            approved: false,
             createdAt: new Date().toISOString(),
           },
         ];
