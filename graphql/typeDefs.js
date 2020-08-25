@@ -16,7 +16,7 @@ module.exports = gql`
     token: String!
   }
   type Product {
-    id: ID
+    id: ID!
     username: String!
     userId: ID 
     createdAt: String!
@@ -41,5 +41,6 @@ module.exports = gql`
   type Query {
     getUsers: [User]
     getProductsForApprove: [Product]
+    getUserProducts(userId: ID!): [Product]
   }
 `;

@@ -4,6 +4,19 @@ const { UserInputError, AuthenticationError } = require("apollo-server");
 
 module.exports = {
   Query: {
+    getUserProducts: async (_, { userId }, context) => {
+      try {
+        const user = checkAuth(context);
+        if (userId !== user.id) {
+          throw new Error('Forbidden operation')
+        }
+        const { products } = await User.findById(userId);
+        console.log(products)
+        return products
+      } catch (err) {
+        throw new Error(err);
+      }
+    },
     getProductsForApprove: async () => {
       try {
         const users = await User.find();
@@ -84,20 +97,20 @@ module.exports = {
         throw new UserInputError("User not found");
       }
     },
-    async approveProduct(_, {userId ,productId}, context) {
-      const {username} = checkAuth(context)
-      const user = await User.findById(userId)
+    async approveProduct(_, { userId, productId }, context) {
+      const { username } = checkAuth(context);
+      const user = await User.findById(userId);
       if (user) {
-        user.products.forEach(p => {
+        user.products.forEach((p) => {
           if (p.id === productId) {
-            p.approved = true
+            p.approved = true;
           }
-        })
-        await user.save()
-        return user
+        });
+        await user.save();
+        return user;
       } else {
-        throw new UserInputError("This product doesn't exist already")
+        throw new UserInputError("This product doesn't exist already");
       }
-    }
+    },
   },
-}
+};
