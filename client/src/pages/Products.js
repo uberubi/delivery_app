@@ -4,6 +4,7 @@ import { Grid, Transition } from "semantic-ui-react";
 
 import { AuthContext } from "../context/auth";
 import ProductCard from "../components/ProductCard";
+import ProductAddForm from "../components/ProductAddForm";
 const Products = () => {
   const { user } = useContext(AuthContext);
   console.log(user);
@@ -28,7 +29,7 @@ const Products = () => {
       <Grid.Row>
         {user && (
           <Grid.Column>
-            <h1>PRODUCTS ADD FORM</h1>
+            <ProductAddForm  userId={user.id} />
           </Grid.Column>
         )}
 
